@@ -1,0 +1,10 @@
+[Unit]
+Description=Linux Wallpaper Engine
+After=graphical-session.target
+
+[Service]
+ExecStart=linux-wallpaperengine --layer background --screen-root HDMI-A-1 3750235952
+Restart=always
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,109 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "height": 22,
+    "spacing": 4,
+    "modules-left": [
+        "custom/gpu-usage",
+        "temperature#gpu",
+        "cpu",
+        "temperature",
+        "memory"
+    ],
+    "modules-center": [
+        "custom/spotify-voldown",
+        "custom/spotify-prev",
+        "custom/spotify-play",
+        "custom/spotify-next",
+        "custom/spotify-volup",
+        "custom/spotify"
+    ],
+    "modules-right": [
+        "backlight",
+        "battery",
+        "battery#bat2",
+        "tray"
+    ],
+    "custom/gpu-usage": {
+        "exec": "cat /sys/class/drm/card1/device/gpu_busy_percent",
+        "interval": 2,
+        "format": "󰢮 {}%"
+    },
+    "temperature#gpu": {
+        "hwmon-path": "/sys/class/drm/card1/device/hwmon/hwmon1/temp1_input",
+        "critical-threshold": 80,
+        "format": "󰈸 {temperatureC}°C"
+    },
+    "cpu": {
+        "format": " {usage}%",
+        "tooltip": false
+    },
+    "memory": {
+        "format": " {}%"
+    },
+    "temperature": {
+        "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        "format": " {temperatureC}°C"
+    },
+    "backlight": {
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-full": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "battery#bat2": {
+        "bat": "BAT2"
+    },
+    "tray": {
+        "spacing": 10
+    },
+    "custom/spotify": {
+        "format": "{}",
+        "return-type": "json",
+        "max-length": 40,
+        "escape": true,
+        "exec": "$HOME/.config/waybar/spotify.sh",
+        "interval": 1,
+        "on-click": "playerctl -p spotify play-pause",
+        "on-scroll-up": "playerctl -p spotify next",
+        "on-scroll-down": "playerctl -p spotify previous"
+    },
+    "custom/spotify-prev": {
+        "format": "󰒮",
+        "on-click": "playerctl -p spotify previous",
+        "tooltip": "Previous Track"
+    },
+    "custom/spotify-play": {
+        "format": "{}",
+        "return-type": "json",
+        "exec": "playerctl -p spotify status | grep -q 'Playing' && echo '{\"text\":\"󰏤\",\"tooltip\":\"Pause\"}' || echo '{\"text\":\"󰐊\",\"tooltip\":\"Play\"}'",
+        "interval": 1,
+        "on-click": "playerctl -p spotify play-pause"
+    },
+    "custom/spotify-next": {
+        "format": "󰒭",
+        "on-click": "playerctl -p spotify next",
+        "tooltip": "Next Track"
+    },
+    "custom/spotify-voldown": {
+        "format": "󰝞",
+        "on-click": "playerctl -p spotify volume 0.05-",
+        "tooltip": "Lower Spotify Volume"
+    },
+    "custom/spotify-volup": {
+        "format": "󰝝",
+        "on-click": "playerctl -p spotify volume 0.05+",
+        "tooltip": "Raise Spotify Volume"
+    }
+}
