@@ -7,18 +7,31 @@ My Zed, kitty and Neovim configs, for macOS and Ubuntu (Mac keyboard via [Toshy]
 | `zed/` | `~/.config/zed/{settings,keymap,tasks}.json`, `themes/pydex.json` |
 | `kitty/` | `~/.config/kitty` |
 | `nvim/` | `~/.config/nvim` (lazy.nvim bootstraps itself on first launch) |
+| `toshy/` | `~/.config/toshy/{toshy_config.py,toshy_user_preferences.sqlite}` (Linux only) |
 
 ## Install
 
+Prerequisites:
+- **macOS:** [Homebrew](https://brew.sh) and `git`
+- **Linux:** `git`, `curl`, `sudo`, and apt, dnf or pacman (other distros: install kitty + neovim yourself first)
+
 ```sh
-brew install --cask zed kitty font-iosevka-nerd-font && brew install neovim   # macOS
 git clone https://github.com/chro11os/dotfiles.git
 cd dotfiles && ./setup.sh
 ```
 
-`setup.sh` symlinks everything into `~/.config` and backs up any existing real files/dirs to `*.bak`. Edits made in the apps land in this repo. Don't move the folder afterwards, or rerun `./setup.sh` if you do. Update later: `git pull`.
+`setup.sh` detects macOS vs Linux and installs whatever is missing:
 
-Linux font: download `Iosevka.tar.xz` from [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases/latest), extract into `~/.local/share/fonts`, run `fc-cache -f`.
+| | macOS (brew) | Linux |
+|---|---|---|
+| Zed | `--cask zed` | zed.dev install script |
+| kitty, Neovim | `--cask kitty`, `neovim` | apt / dnf / pacman |
+| Iosevka Nerd Font | `--cask font-iosevka-nerd-font` | Nerd Fonts release → `~/.local/share/fonts` |
+| Toshy | not needed (native Cmd) | cloned + `./setup_toshy.py install` (asks for sudo) |
+
+It then symlinks everything into `~/.config` and backs up any existing real files/dirs to `*.bak`. Edits made in the apps (including the Toshy preferences GUI) land in this repo. Don't move the folder afterwards, or rerun `./setup.sh` if you do. Update later: `git pull`. After a fresh Toshy install, log out and back in.
+
+Toshy upgrades (`toshy-reinstall`) rewrite `toshy_config.py` as a real file. Rerun `./setup.sh` afterwards; it moves that file to `.bak`, so copy over any changes you want to keep first.
 
 # Zed (pydex)
 
