@@ -1,0 +1,15 @@
+// Physical keys are the same on macOS and on Linux + Toshy (Mac keyboard).
+// Toshy, in GUI apps like VS Code: physical Cmd arrives as ctrl, so Linux binds ctrl, macOS binds cmd.
+[
+  // Cmd+J toggles editor <-> terminal (like Zed)
+  { "key": "ctrl+j", "command": "workbench.action.terminal.focus", "when": "isLinux && !terminalFocus" },
+  { "key": "ctrl+j", "command": "workbench.action.focusActiveEditorGroup", "when": "isLinux && terminalFocus" },
+  { "key": "cmd+j", "command": "workbench.action.terminal.focus", "when": "isMac && !terminalFocus" },
+  { "key": "cmd+j", "command": "workbench.action.focusActiveEditorGroup", "when": "isMac && terminalFocus" },
+
+  // Cmd+? toggles editor/terminal <-> Claude Code chat
+  { "key": "ctrl+shift+/", "command": "claude-vscode.focus", "when": "isLinux && (editorTextFocus || terminalFocus)" },
+  { "key": "ctrl+shift+/", "command": "claude-vscode.blur", "when": "isLinux && !editorTextFocus && !terminalFocus" },
+  { "key": "cmd+shift+/", "command": "claude-vscode.focus", "when": "isMac && (editorTextFocus || terminalFocus)" },
+  { "key": "cmd+shift+/", "command": "claude-vscode.blur", "when": "isMac && !editorTextFocus && !terminalFocus" }
+]

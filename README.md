@@ -1,10 +1,11 @@
 # dotfiles
 
-My Zed, kitty and Neovim configs, for macOS and Ubuntu (Mac keyboard via [Toshy](https://github.com/RedBearAK/toshy)).
+My Zed, VS Code, kitty and Neovim configs, for macOS and Ubuntu (Mac keyboard via [Toshy](https://github.com/RedBearAK/toshy)).
 
 | Dir | Linked to |
 |---|---|
 | `zed/` | `~/.config/zed/{settings,keymap,tasks}.json`, `themes/pydex.json` |
+| `vscode/` | `~/.config/Code/User/{settings,keybindings}.json` (macOS: `~/Library/Application Support/Code/User`); extensions from `vscode/extensions.txt` |
 | `kitty/` | `~/.config/kitty` |
 | `nvim/` | `~/.config/nvim` (lazy.nvim bootstraps itself on first launch) |
 | `toshy/` | `~/.config/toshy/{toshy_config.py,toshy_user_preferences.sqlite}` (Linux only) |
@@ -25,11 +26,12 @@ cd dotfiles && ./setup.sh
 | | macOS (brew) | Linux |
 |---|---|---|
 | Zed | `--cask zed` | zed.dev install script |
+| VS Code + extensions | `--cask visual-studio-code` | `snap install code --classic` |
 | kitty, Neovim | `--cask kitty`, `neovim` | apt / dnf / pacman |
 | Iosevka Nerd Font | `--cask font-iosevka-nerd-font` | Nerd Fonts release → `~/.local/share/fonts` |
 | Toshy | not needed (native Cmd) | cloned + `./setup_toshy.py install` (asks for sudo) |
 
-It then symlinks everything into `~/.config` and backs up any existing real files/dirs to `*.bak`. Edits made in the apps (including the Toshy preferences GUI) land in this repo. Don't move the folder afterwards, or rerun `./setup.sh` if you do. Update later: `git pull`. After a fresh Toshy install, log out and back in.
+It then symlinks everything into `~/.config` and backs up any existing real files/dirs to `*.bak`. Edits made in the apps (including the Toshy preferences GUI) land in this repo. Don't move the folder afterwards, or rerun `./setup.sh` if you do. Update later: `git pull`. New VS Code extension? `code --list-extensions > vscode/extensions.txt`. After a fresh Toshy install, log out and back in.
 
 Toshy upgrades (`toshy-reinstall`) rewrite `toshy_config.py` as a real file. Rerun `./setup.sh` afterwards; it moves that file to `.bak`, so copy over any changes you want to keep first.
 
@@ -56,6 +58,8 @@ All keys are **physical keys on a Mac keyboard**, and they're the same on macOS 
 | `Ctrl+C` (in terminal) | Stop → terminal hides, focus returns to editor |
 | `Cmd+J` | Toggle editor ↔ terminal (also shows the last run's output) |
 | `Cmd+?` | Toggle editor ↔ Claude (agent panel) |
+
+VS Code (`vscode/keybindings.json`) matches: `Cmd+J` toggles editor ↔ terminal, `Cmd+?` toggles editor/terminal ↔ Claude Code chat.
 | `Cmd+C` / `Cmd+V` (in terminal) | Copy / paste. Ctrl+D, Ctrl+Z, Ctrl+R, etc. reach the shell as usual |
 
 ### Zed defaults worth knowing

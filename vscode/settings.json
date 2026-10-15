@@ -1,0 +1,18 @@
+{
+  "editor.fontFamily": "'Iosevka Nerd Font', monospace",
+  "editor.fontSize": 15,
+  "editor.fontLigatures": true,
+  "terminal.integrated.fontFamily": "'Iosevka Nerd Font'",
+  "terminal.integrated.fontSize": 15,
+  "workbench.productIconTheme": "material-product-icons",
+  "workbench.activityBar.compact": true,
+  "workbench.iconTheme": "vscode-icons-mac",
+  "chat.disableAIFeatures": true,
+  "claudeCode.hideOnboarding": true,
+  "python.createEnvironment.trigger": "off",
+  "editor.minimap.enabled": false,
+  "terminal.integrated.commandsToSkipShell": [
+    "workbench.action.focusActiveEditorGroup",
+    "claude-vscode.focus"
+  ]
+}

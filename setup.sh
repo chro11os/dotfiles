@@ -1,5 +1,5 @@
 #!/bin/sh
-# Install Zed, kitty, Neovim, Iosevka Nerd Font (+ Toshy on Linux), then symlink configs into ~/.config.
+# Install Zed, VS Code, kitty, Neovim, Iosevka Nerd Font (+ Toshy on Linux), then symlink configs into ~/.config.
 # Already-installed apps are skipped. Existing non-symlinks are backed up to *.bak.
 set -e
 repo="$(cd "$(dirname "$0")" && pwd)"
@@ -20,12 +20,18 @@ if [ "$os" = Darwin ]; then
     have zed || [ -d /Applications/Zed.app ] || brew install --cask zed
     have kitty || [ -d /Applications/kitty.app ] || brew install --cask kitty
     have nvim || brew install neovim
+    have code || [ -d "/Applications/Visual Studio Code.app" ] || brew install --cask visual-studio-code
     ls ~/Library/Fonts /Library/Fonts 2>/dev/null | grep -qi iosevka || brew install --cask font-iosevka-nerd-font
   else
     echo "note: Homebrew not found (https://brew.sh), skipping app installs"
   fi
 elif [ "$os" = Linux ]; then
   have zed || curl -f https://zed.dev/install.sh | sh
+  if ! have code; then
+    if have snap; then sudo snap install code --classic
+    else echo "note: install VS Code manually (https://code.visualstudio.com)"
+    fi
+  fi
   pkgs=""
   have kitty || pkgs="$pkgs kitty"
   have nvim || pkgs="$pkgs neovim"
@@ -54,6 +60,15 @@ fi
 for f in settings.json keymap.json tasks.json themes/pydex.json; do
   link "zed/$f" "$cfg/zed/$f"
 done
+# vscode: settings + keybindings only, since the User dir also holds app state. Extensions from vscode/extensions.txt.
+if [ "$os" = Darwin ]; then vsc="$HOME/Library/Application Support/Code/User"; else vsc="$cfg/Code/User"; fi
+for f in settings.json keybindings.json; do link "vscode/$f" "$vsc/$f"; done
+if have code; then
+  installed="$(code --list-extensions)"
+  while read -r ext; do
+    echo "$installed" | grep -qix "$ext" || code --install-extension "$ext" </dev/null  # code reads stdin; would eat the list
+  done < "$repo/vscode/extensions.txt"
+fi
 # kitty, nvim: whole dir
 link kitty "$cfg/kitty"
 link nvim "$cfg/nvim"
