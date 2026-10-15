@@ -39,7 +39,7 @@ elif [ "$os" = Linux ]; then
   if ! fc-list 2>/dev/null | grep -qi iosevka; then
     mkdir -p ~/.local/share/fonts/Iosevka
     curl -fL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Iosevka.tar.xz \
-      | tar -xJ -C ~/.local/share/fonts/Iosevka
+      | tar -xJ -C ~/.local/share/fonts/Iosevka --wildcards 'IosevkaNerdFont-*.ttf'
     fc-cache -f
   fi
   if [ ! -x ~/.local/bin/toshy-services-restart ]; then

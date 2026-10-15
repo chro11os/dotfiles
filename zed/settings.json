@@ -22,8 +22,8 @@
     "light": "pydex Paper",
     "dark": "pydex Dark"
   },
-  // Font: Iosevka Nerd Font Mono (see README for install)
-  "buffer_font_family": "Iosevka Nerd Font Mono",
+  // Font: Iosevka Nerd Font (see README for install)
+  "buffer_font_family": "Iosevka Nerd Font",
   // Subpixel (RGB) anti-aliasing: sharper text. "grayscale" if you see color fringes
   "text_rendering_mode": "subpixel",
 
@@ -60,7 +60,7 @@
 
   // Auto-activate .venv in terminals
   "terminal": {
-    "font_family": "Iosevka Nerd Font Mono",
+    "font_family": "Iosevka Nerd Font",
     "detect_venv": { "on": { "directories": [".venv", "venv"], "activate_script": "default" } }
   },
 

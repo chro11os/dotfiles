@@ -40,7 +40,7 @@ Toshy upgrades (`toshy-reinstall`) rewrite `toshy_config.py` as a real file. Rer
 - **Run:** `Cmd+R` runs the current file in the terminal and focuses it; when the script ends or you `Ctrl+C`, the terminal hides and focus goes back to the editor
 - Uses `.venv/bin/python` if present, otherwise `python3`
 - **Theme:** `pydex Dark` (Monokai syntax on Campbell black) and `pydex Paper` (inked syntax on warm paper white), following system light/dark
-- **Font:** Iosevka Nerd Font Mono (editor + terminal)
+- **Font:** Iosevka Nerd Font (editor + terminal)
 - **Icons:** Symbols (extension auto-installs)
 - **Claude Code** in the agent panel (Claude Agent)
 
