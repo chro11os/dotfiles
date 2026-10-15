@@ -1,0 +1,84 @@
+// pydex: Zed config for Python. Symlinked from ~/.config/zed by install.sh
+{
+  "agent": {
+    "default_model": {
+      "provider": "ollama",
+      "model": "huihui_ai/qwen3-abliterated:14b",
+      "enable_thinking": true
+    },
+    "favorite_models": [],
+    "model_parameters": []
+  },
+  // File icons: "symbols" extension, auto-installed on any machine
+  "auto_install_extensions": { "symbols": true },
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Symbols Icon Theme",
+    "dark": "Symbols Icon Theme"
+  },
+  // zed/themes/pydex.json; follows system light/dark
+  "theme": {
+    "mode": "dark",
+    "light": "pydex Paper",
+    "dark": "pydex Dark"
+  },
+  // Font: Iosevka Nerd Font Mono (see README for install)
+  "buffer_font_family": "Iosevka Nerd Font Mono",
+  // Subpixel (RGB) anti-aliasing: sharper text. "grayscale" if you see color fringes
+  "text_rendering_mode": "subpixel",
+
+  // Error lens: show diagnostics at end of line
+  "diagnostics": {
+    "inline": {
+      "enabled": true,
+      "update_debounce_ms": 150,
+      "padding": 4
+    }
+  },
+
+  // No formatting on save anywhere. Prettier fully off.
+  "format_on_save": "off",
+  // Keep indent whitespace on save, so the cursor doesn't jump to column 0
+  "remove_trailing_whitespace_on_save": false,
+  "prettier": { "allowed": false },
+
+  // Auto-close brackets, quotes, and JSX/TSX/HTML tags (</...>)
+  "use_autoclose": true,
+  "jsx_tag_auto_close": { "enabled": true },
+
+  "languages": {
+    "Python": {
+      // basedpyright = types, ruff = lint + format
+      "language_servers": ["basedpyright", "ruff"],  // exactly these; no ty/pyright/pylsp
+      // Never format on save; Format (Cmd+Shift+I) still uses ruff when you ask
+      "formatter": [
+        { "code_action": "source.organizeImports.ruff" },
+        { "language_server": { "name": "ruff" } }
+      ]
+    }
+  },
+
+  // Auto-activate .venv in terminals
+  "terminal": {
+    "font_family": "Iosevka Nerd Font Mono",
+    "detect_venv": { "on": { "directories": [".venv", "venv"], "activate_script": "default" } }
+  },
+
+  // Claude Code in the agent panel (installed from Zed's ACP registry on first use)
+  "agent_servers": {
+    "claude-acp": { "default_config_options": {
+                          "mode": "auto",
+                          "model": "opus"
+                    },
+                    "type": "registry" }
+  },
+
+  // No AI autocomplete (agent panel still works)
+  "edit_predictions": { "provider": "none" },
+
+  // Minimal: turn off what you don't use (flip back if you want them)
+  "collaboration_panel": { "button": false },
+  "chat_panel": { "button": "never" },
+  "notification_panel": { "button": false },
+  "telemetry": { "diagnostics": false, "metrics": false }
+}

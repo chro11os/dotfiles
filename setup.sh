@@ -1,45 +1,27 @@
-#!/usr/bin/env bash
-
-# Exit immediately if a command exits with a non-zero status
+#!/bin/sh
+# Symlink zed, kitty and nvim configs into ~/.config. Existing non-symlinks are backed up to *.bak.
 set -e
+repo="$(cd "$(dirname "$0")" && pwd)"
+cfg="${XDG_CONFIG_HOME:-$HOME/.config}"
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-echo "Setting up dotfiles..."
-
-# Helper function to create symlinks with backup
-link_config() {
-    local src="$1"
-    local dest="$2"
-    
-    if [ -e "$dest" ] || [ -L "$dest" ]; then
-        if [ -L "$dest" ]; then
-            echo "Removing existing symlink: $dest"
-            rm "$dest"
-        else
-            echo "Backing up existing directory/file: $dest to ${dest}.bak"
-            mv "$dest" "${dest}.bak"
-        fi
-    fi
-    
-    echo "Linking $src -> $dest"
-    ln -s "$src" "$dest"
+link() {  # link <repo path> <target>
+  mkdir -p "$(dirname "$2")"
+  if [ -e "$2" ] && [ ! -L "$2" ]; then mv "$2" "$2.bak"; fi
+  ln -sfn "$repo/$1" "$2"
+  echo "linked $2 -> $repo/$1"
 }
 
-# Create necessary directories
-mkdir -p "$HOME/.config"
-mkdir -p "$HOME/.config/systemd/user"
+# zed: per file, since ~/.config/zed also holds app state (prompts db etc.)
+for f in settings.json keymap.json tasks.json themes/pydex.json; do
+  link "zed/$f" "$cfg/zed/$f"
+done
+# kitty, nvim: whole dir
+link kitty "$cfg/kitty"
+link nvim "$cfg/nvim"
 
-# Link configurations
-link_config "$SCRIPT_DIR/config/hypr" "$HOME/.config/hypr"
-link_config "$SCRIPT_DIR/config/waybar" "$HOME/.config/waybar"
-link_config "$SCRIPT_DIR/config/wofi" "$HOME/.config/wofi"
-link_config "$SCRIPT_DIR/config/kitty" "$HOME/.config/kitty"
-link_config "$SCRIPT_DIR/systemd/user/linux-wallpaperengine.service" "$HOME/.config/systemd/user/linux-wallpaperengine.service"
-
-# Reload systemd user daemon and enable service
-echo "Reloading systemd user services..."
-systemctl --user daemon-reload
-systemctl --user enable linux-wallpaperengine.service
-
-echo "Dotfiles setup completed successfully!"
+have() { command -v "$1" >/dev/null; }
+have zed || [ -d /Applications/Zed.app ] || echo "note: Zed not found. brew install --cask zed  (or: curl -f https://zed.dev/install.sh | sh)"
+have kitty || [ -d /Applications/kitty.app ] || echo "note: kitty not found. brew install --cask kitty  (or: curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin)"
+have nvim || echo "note: Neovim not found. brew install neovim  (or your distro's package)"
+{ fc-list 2>/dev/null; ls ~/Library/Fonts /Library/Fonts 2>/dev/null; } | grep -qi iosevka || \
+  echo "note: Iosevka Nerd Font not found. brew install --cask font-iosevka-nerd-font  (Linux: see README)"

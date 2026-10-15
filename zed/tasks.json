@@ -1,0 +1,11 @@
+[
+  {
+    "label": "Run Python file",
+    // Uses .venv python if present, else python3
+    "command": "if [ -x .venv/bin/python ]; then .venv/bin/python \"$ZED_FILE\"; else python3 \"$ZED_FILE\"; fi",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",   // run -> terminal opens and takes focus
+    "hide": "always"      // script ends or Ctrl+C -> panel hides, focus back to editor
+  }
+]

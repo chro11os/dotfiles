@@ -1,0 +1,43 @@
+// Physical keys are the same on macOS and on Linux + Toshy (Mac keyboard).
+// Toshy, in GUI apps like Zed: physical Cmd arrives as ctrl, physical Ctrl as super.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-r": ["task::Spawn", { "task_name": "Run Python file" }],
+      "f5": ["task::Spawn", { "task_name": "Run Python file" }],
+      // Cmd+J toggles editor <-> terminal (Cmd+` is taken by window switching)
+      "cmd-j": "terminal_panel::ToggleFocus",
+      "ctrl-`": "terminal_panel::ToggleFocus"
+    }
+  },
+  {
+    // Linux + Toshy: physical Cmd+R / Cmd+J
+    "context": "Workspace && os == linux",
+    "bindings": {
+      "ctrl-r": ["task::Spawn", { "task_name": "Run Python file" }],
+      "ctrl-j": "terminal_panel::ToggleFocus"
+    }
+  },
+  {
+    // Linux + Toshy, in Zed's terminal: physical Ctrl+key -> real ctrl to the shell,
+    // physical Cmd+C / Cmd+V -> copy / paste (like a Mac terminal)
+    "context": "Terminal && os == linux",
+    "bindings": {
+      "super-c": ["terminal::SendKeystroke", "ctrl-c"],
+      "super-d": ["terminal::SendKeystroke", "ctrl-d"],
+      "super-z": ["terminal::SendKeystroke", "ctrl-z"],
+      "super-l": ["terminal::SendKeystroke", "ctrl-l"],
+      "super-r": ["terminal::SendKeystroke", "ctrl-r"],
+      "super-a": ["terminal::SendKeystroke", "ctrl-a"],
+      "super-e": ["terminal::SendKeystroke", "ctrl-e"],
+      "super-u": ["terminal::SendKeystroke", "ctrl-u"],
+      "super-k": ["terminal::SendKeystroke", "ctrl-k"],
+      "super-w": ["terminal::SendKeystroke", "ctrl-w"],
+      "super-p": ["terminal::SendKeystroke", "ctrl-p"],
+      "super-n": ["terminal::SendKeystroke", "ctrl-n"],
+      "ctrl-c": "terminal::Copy",
+      "ctrl-v": "terminal::Paste"
+    }
+  }
+]
