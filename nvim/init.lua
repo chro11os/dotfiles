@@ -1,10 +1,7 @@
--- Add Mason bin directory to PATH so Neovim can find installed language servers
-vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
-
 -- Neovim Settings
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.cursorline = false
+vim.opt.cursorline = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
@@ -22,7 +19,6 @@ local function enable_transparency()
   end
 end
 
-enable_transparency()
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
   callback = enable_transparency,
@@ -30,7 +26,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
 -- Bootstrap lazy.nvim (Plugin Manager)
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -45,31 +41,27 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup plugins
 require("lazy").setup({
   -- Mason Package Manager for LSPs
-  {
-    "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup()
-    end,
-  },
+  -- (mason-lspconfig also runs vim.lsp.enable on installed servers)
   {
     "williamboman/mason-lspconfig.nvim",
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "ts_ls",        -- TypeScript, JavaScript, React (JSX/TSX)
-          "eslint",       -- Linting for JS / TS / React
-          "html",         -- HTML
-          "cssls",        -- CSS
-          "tailwindcss",  -- Tailwind CSS
-          "clangd",       -- C and C++
-          "jdtls",        -- Java
-          "pyright",      -- Python LSP
-          "ruff",         -- Python linter + formatter
-        },
-      })
-    end,
+    dependencies = {
+      { "williamboman/mason.nvim", opts = {} },
+      "neovim/nvim-lspconfig",
+    },
+    opts = {
+      ensure_installed = {
+        "ts_ls",        -- TypeScript, JavaScript, React (JSX/TSX)
+        "eslint",       -- Linting for JS / TS / React
+        "html",         -- HTML
+        "cssls",        -- CSS
+        "tailwindcss",  -- Tailwind CSS
+        "clangd",       -- C and C++
+        "jdtls",        -- Java
+        "pyright",      -- Python LSP
+        "ruff",         -- Python linter + formatter
+      },
+    },
   },
-  { "neovim/nvim-lspconfig" },
 
   -- Autocompletion Engine & Sources
   { "hrsh7th/nvim-cmp" },
@@ -123,6 +115,29 @@ require("lazy").setup({
     end,
   },
 
+  -- Fuzzy Finder
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
+    keys = {
+      { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+      { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Grep in project" },
+      { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find buffers" },
+      { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Find help" },
+    },
+  },
+
+  -- File Explorer (edit the directory like a buffer)
+  {
+    "stevearc/oil.nvim",
+    lazy = false,
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {},
+    keys = {
+      { "-", "<cmd>Oil<cr>", desc = "Open parent directory" },
+    },
+  },
+
   -- Claude Code integration (selection context + diffs in Neovim)
   {
     "coder/claudecode.nvim",
@@ -135,28 +150,16 @@ require("lazy").setup({
       { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
     },
   },
+}, {
+  rocks = { enabled = false }, -- no plugin needs luarocks
 })
 
 -- LSP keymaps (Neovim already provides K, grn, gra, grr, gri, [d, ]d)
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set({ "n", "v" }, "<leader>f", vim.lsp.buf.format, { desc = "Format" })
 
--- Configure LSP Clients
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local servers = { "ts_ls", "eslint", "html", "cssls", "tailwindcss", "clangd", "jdtls", "pyright", "ruff" }
-
-for _, lsp in ipairs(servers) do
-  if vim.lsp.config then
-    vim.lsp.config(lsp, {
-      capabilities = capabilities,
-    })
-    vim.lsp.enable(lsp)
-  else
-    require("lspconfig")[lsp].setup({
-      capabilities = capabilities,
-    })
-  end
-end
+-- Advertise cmp completion capabilities to every LSP server
+vim.lsp.config("*", { capabilities = require("cmp_nvim_lsp").default_capabilities() })
 
 -- Configure Autocompletion (cmp)
 local cmp = require("cmp")
