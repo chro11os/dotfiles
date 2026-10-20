@@ -5433,6 +5433,8 @@ hmp_is_term_kitty               = matchProps(clas="^kitty$")
 keymap("Kitty terminal - not tab nav", {
     C("RC-L"):                  C("C-L"),                       # Clear log
     C("RC-K"):                  C("C-L"),                       # Clear log (macOS)
+    C("Shift-RC-Equal"):        C("C-Shift-t"),                 # New tab (Cmd+Shift+=), not font zoom
+    C("Shift-RC-Minus"):        C("C-Shift-q"),                 # Close tab (Cmd+Shift+-), not font zoom
 }, when = lambda ctx:
     cnfg.screen_has_focus and
     ctx_ovl_terminal_ergo and
