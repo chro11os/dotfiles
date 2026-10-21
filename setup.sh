@@ -69,9 +69,10 @@ if have code; then
     echo "$installed" | grep -qix "$ext" || code --install-extension "$ext" </dev/null  # code reads stdin; would eat the list
   done < "$repo/vscode/extensions.txt"
 fi
-# kitty, nvim: whole dir
+# kitty, nvim, hypr: whole dir
 link kitty "$cfg/kitty"
 link nvim "$cfg/nvim"
+link hypr "$cfg/hypr"
 # toshy: per file, since ~/.config/toshy also holds Toshy's own code + venv. Toshy hardcodes ~/.config.
 if [ "$os" = Linux ]; then
   for f in toshy_config.py toshy_user_preferences.sqlite; do
