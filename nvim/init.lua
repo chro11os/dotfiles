@@ -88,20 +88,15 @@ require("lazy").setup({
   -- Tree-sitter for Rich Syntax Highlighting
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "main",
+    -- ponytail: "master" supports Neovim 0.11; move back to "main" after upgrading to 0.12+ with tree-sitter-cli
+    branch = "master",
     build = ":TSUpdate",
-    config = function()
-      local ts = require("nvim-treesitter")
-      ts.setup({})
-      local parsers = { "javascript", "typescript", "tsx", "html", "css", "c", "cpp", "java", "lua", "python", "markdown", "markdown_inline" }
-      ts.install(parsers)
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = parsers,
-        callback = function()
-          pcall(vim.treesitter.start)
-        end,
-      })
-    end,
+    main = "nvim-treesitter.configs",
+    opts = {
+      ensure_installed = { "javascript", "typescript", "tsx", "html", "css", "c", "cpp", "java", "lua", "python", "markdown", "markdown_inline" },
+      highlight = { enable = true },
+      indent = { enable = true },
+    },
   },
 
   -- Monokai Pro Editor Colorscheme
