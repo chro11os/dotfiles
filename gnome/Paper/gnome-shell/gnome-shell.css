@@ -48,6 +48,18 @@
   background-color: #1c1b19 !important;
 }
 
+/* Dock: square, paper, thin ink outline (overrides Ubuntu Dock's stylesheet) */
+#dashtodockContainer #dash .dash-background {
+  border-radius: 0 !important;
+  background-color: rgba(232, 232, 228, 0.95) !important;
+  border: 1px solid rgba(28, 27, 25, 0.25) !important;
+}
+
+#dashtodockContainer #dash .app-well-app .overview-icon,
+#dashtodockContainer #dash .overview-tile .overview-icon {
+  border-radius: 0 !important;
+}
+
 #panel.unlock-screen,
 #panel.login-screen {
   background-color: transparent !important;

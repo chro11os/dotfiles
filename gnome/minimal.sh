@@ -23,7 +23,25 @@ gsettings set $B picture-options 'none'
 gsettings set $B color-shading-type 'solid'
 gsettings set $B primary-color '#e8e8e4'
 
-gnome-extensions disable ubuntu-dock@ubuntu.com
+# Slim floating dock at the bottom; colors and square corners come from the Paper theme
+D=org.gnome.shell.extensions.dash-to-dock
+gsettings set $D dock-position 'BOTTOM'
+gsettings set $D extend-height false
+gsettings set $D dock-fixed false
+gsettings set $D autohide true
+gsettings set $D intellihide true
+gsettings set $D dash-max-icon-size 28
+gsettings set $D custom-theme-shrink true
+gsettings set $D show-trash false
+gsettings set $D show-mounts false
+gsettings set $D show-show-apps-button false
+gsettings set $D transparency-mode 'DEFAULT'
+gsettings set $D custom-background-color false
+gsettings set $D running-indicator-style 'DOTS'
+gsettings set $D custom-theme-customize-running-dots true
+gsettings set $D custom-theme-running-dots-color '#1c1b19'
+gsettings set $D custom-theme-running-dots-border-width 0
+gnome-extensions enable ubuntu-dock@ubuntu.com
 gnome-extensions disable ding@rastersoft.com
 
 # Top bar theme (needs the gnome-shell-extensions package)
