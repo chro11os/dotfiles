@@ -14,5 +14,6 @@
   "terminal.integrated.commandsToSkipShell": [
     "workbench.action.focusActiveEditorGroup",
     "claude-vscode.focus"
-  ]
+  ],
+  "workbench.colorTheme": "Light 2026"
 }
