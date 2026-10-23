@@ -1,19 +1,33 @@
 {
+  // Editor
   "editor.fontFamily": "'Iosevka Nerd Font', monospace",
   "editor.fontSize": 15,
   "editor.fontLigatures": true,
+  "editor.minimap.enabled": false,
+
+  // Terminal
   "terminal.integrated.fontFamily": "'Iosevka Nerd Font'",
   "terminal.integrated.fontSize": 15,
-  "workbench.productIconTheme": "material-product-icons",
-  "workbench.activityBar.compact": true,
-  "workbench.iconTheme": "vscode-icons-mac",
-  "chat.disableAIFeatures": true,
-  "claudeCode.hideOnboarding": true,
-  "python.createEnvironment.trigger": "off",
-  "editor.minimap.enabled": false,
   "terminal.integrated.commandsToSkipShell": [
     "workbench.action.focusActiveEditorGroup",
     "claude-vscode.focus"
   ],
-  "workbench.colorTheme": "Light 2026"
+
+  // Look
+  "workbench.colorTheme": "Light 2026",
+  "workbench.iconTheme": "vscode-icons-mac",
+  "workbench.productIconTheme": "material-product-icons",
+  "workbench.activityBar.compact": true,
+
+  // No animations
+  "workbench.reduceMotion": "on",
+  "editor.smoothScrolling": false,
+  "workbench.list.smoothScrolling": false,
+  "terminal.integrated.smoothScrolling": false,
+  "editor.cursorSmoothCaretAnimation": "off",
+
+  // Extensions / AI
+  "chat.disableAIFeatures": true,
+  "claudeCode.hideOnboarding": true,
+  "python.createEnvironment.trigger": "off"
 }
