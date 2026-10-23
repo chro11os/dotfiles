@@ -61,6 +61,20 @@
   border-radius: 0 !important;
 }
 
+/* Show Applications: Yaru draws a white glyph on a dark tile; make it ink, no tile */
+#dashtodockContainer #dash .show-apps .overview-icon {
+  color: #1c1b19 !important;
+  background-color: transparent !important;
+}
+#dashtodockContainer #dash .show-apps:hover .overview-icon,
+#dashtodockContainer #dash .show-apps:focus .overview-icon {
+  background-color: rgba(28, 27, 25, 0.08) !important;
+}
+#dashtodockContainer #dash .show-apps:active .overview-icon,
+#dashtodockContainer #dash .show-apps:checked .overview-icon {
+  background-color: rgba(28, 27, 25, 0.16) !important;
+}
+
 #panel.unlock-screen,
 #panel.login-screen {
   background-color: transparent !important;
