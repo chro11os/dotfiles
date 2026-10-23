@@ -56,7 +56,8 @@
 }
 
 #dashtodockContainer #dash .app-well-app .overview-icon,
-#dashtodockContainer #dash .overview-tile .overview-icon {
+#dashtodockContainer #dash .overview-tile .overview-icon,
+#dashtodockContainer #dash .show-apps .overview-icon {
   border-radius: 0 !important;
 }
 

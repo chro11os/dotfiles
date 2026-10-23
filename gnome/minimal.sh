@@ -13,7 +13,7 @@ gsettings set $I font-name 'Iosevka Nerd Font 11'
 gsettings set $I monospace-font-name 'Iosevka Nerd Font 11'
 
 W=org.gnome.desktop.wm.preferences
-gsettings set $W button-layout ':close'
+gsettings set $W button-layout ':minimize,maximize,close'
 gsettings set $W titlebar-font 'Iosevka Nerd Font Bold 11'
 
 B=org.gnome.desktop.background
@@ -34,7 +34,7 @@ gsettings set $D dash-max-icon-size 28
 gsettings set $D custom-theme-shrink true
 gsettings set $D show-trash false
 gsettings set $D show-mounts false
-gsettings set $D show-show-apps-button false
+gsettings set $D show-show-apps-button true
 gsettings set $D transparency-mode 'DEFAULT'
 gsettings set $D custom-background-color false
 gsettings set $D running-indicator-style 'DOTS'
