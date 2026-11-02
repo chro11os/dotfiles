@@ -14,7 +14,7 @@
   ],
 
   // Look
-  "workbench.colorTheme": "Light 2026",
+  "workbench.colorTheme": "Monokai",
   "workbench.iconTheme": "vscode-icons-mac",
   "workbench.productIconTheme": "material-product-icons",
   "workbench.activityBar.compact": true,
